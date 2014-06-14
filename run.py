@@ -4,8 +4,8 @@ import asyncio
 import tornado
 from tornado.platform.asyncio import AsyncIOMainLoop
 
-from tetris.settings import settings
 from tetris.routes import handlers
+from tetris.settings import settings
 
 
 if __name__ == '__main__':
