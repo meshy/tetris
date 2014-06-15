@@ -48,6 +48,26 @@ function MainCtrl($scope, WebSocketFactory) {
     $scope.connected = false;
     $scope.blocks = [];
 
+    $scope.keydown = function (event) {
+        var direction;
+        switch (event.keyCode) {
+        case 40:  // Down
+            direction = 'Down';
+            break;
+        case 37:  // Left
+            direction = 'Left';
+            break;
+        case 39:  // Right
+            direction = 'Right';
+            break;
+        default:
+            break;
+        }
+        if (direction) {
+            WebSocketFactory.send(direction);
+        }
+    };
+
     WebSocketFactory.onopen = function () {
         $scope.$apply(function () {
             $scope.connected = true;

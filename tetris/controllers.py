@@ -11,7 +11,6 @@ class WebSocket(websocket.WebSocketHandler):
         self.write_message('Connection OPEN!')
 
     def on_message(self, data):
-        self.write_message('Got message:')
         self.write_message(data)
 
     def on_close(self):
