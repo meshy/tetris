@@ -48,7 +48,7 @@ function MainCtrl($scope, WebSocketFactory) {
     $scope.connected = false;
     $scope.blocks = [];
 
-    $scope.keypress = function (event) {
+    $scope.keydown = function (event) {
         var direction;
         switch (event.keyCode) {
         case 40:  // Down
