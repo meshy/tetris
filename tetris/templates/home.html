@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Tetris</title>
 </head>
-<body>
+<body ng-keypress="keypress($event)" tabindex="0">
     <div ng-repeat="block in blocks track by $index" ng-bind="block"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js" type="text/javascript"></script>
