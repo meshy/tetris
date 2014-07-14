@@ -33,7 +33,7 @@ class Piece:
                 coordinate[1] += transform[1]
 
     def get_coords(self):
-        return self.orientations[self.rotation]
+        return self.orientations[self.rotation]# should this be self.move(down)?
 
     def rotate(self, rotation):
         limit = len(self.orientations) + 1
@@ -115,45 +115,38 @@ class RSPiece(Piece):
 class Grid:
     def __init__(self, width, height):
         self.startpoint = width/2
-        self.current_piece = create_random_piece()
-        self.next_piece = create_random_piece()
+        self.current_piece = self.random_piece()
+        self.next_piece = self.random_piece()
         self.has_piece = True
         self.height = height
-        self.width = width
+        self.width = width functiion
         self.blocks = [[Block() for _ in range(width)] for _ in range(height)]
-        pieces = {1 : TPiece,
-            2 : SquarePiece,
-            3 : LLPiece,
-            4 : RLPiece,
-            5 : BarPiece,
-            6 : LSPiece,
-            7 : RSPiece,
-        }
+        self.pieces = [TPiece,SquarePiece,LLPiece,RLPiece,BarPiece,LSPiece,RSPiece,]
 
     def step(self):
         if self.has_piece == True:
-            move(down)
+            self.move(down)
         else:
             self.has_piece = True
             self.current_piece = self.next_piece
-            self.next_piece = random_piece(startpoint)
+            self.next_piece = random_piece()
 
     def rotate(self, rotation):
         if can_rotate(rotation) == True
-            current_piece.rotate(rotation)
+            self.current_piece.rotate(rotation)
         else
             pass
 
     def move(self, translation):
         if can_move(translation) == True
-            current_piece.move(translation)
+            self.current_piece.move(translation)
         else
             pass
 
     def slam(self):
         if self.has_piece == True
             while can_move(down) == True
-                move(down)
+                self.move(down)
             self.has_piece = False
         else
             pass
@@ -167,12 +160,5 @@ class Grid:
     def can_move(self, translation):
         return True
 
-    def random_piece(self, startpoint):
-        return self.pieces[random.randint(0,7)](startpoint)
-
-#    def has_falling_blocks(self):
-#        for row in self.blocks:
-#            for block in row:
-#                if block.state == State.moving:
-#                    return True
-#        return False
+    def random_piece(self):
+        return random.choice(self.pieces)(self.startpoint);
