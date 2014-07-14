@@ -119,7 +119,7 @@ class Grid:
         self.next_piece = self.random_piece()
         self.has_piece = True
         self.height = height
-        self.width = width functiion
+        self.width = width
         self.blocks = [[Block() for _ in range(width)] for _ in range(height)]
         self.pieces = [TPiece,SquarePiece,LLPiece,RLPiece,BarPiece,LSPiece,RSPiece,]
 
