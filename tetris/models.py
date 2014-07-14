@@ -33,7 +33,7 @@ class Piece:
                 coordinate[1] += transform[1]
 
     def get_coords(self):
-        return self.orientations[self.rotation]# should this be self.move(down)?
+        return self.orientations[self.rotation]
 
     def rotate(self, rotation):
         limit = len(self.orientations) + 1
