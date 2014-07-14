@@ -127,9 +127,7 @@ class Grid:
         if self.has_piece == True:
             self.move(down)
         else:
-            self.has_piece = True
-            self.current_piece = self.next_piece
-            self.next_piece = random_piece()
+            self.introduce_piece();
 
     def rotate(self, rotation):
         if can_rotate(rotation) == True
@@ -140,19 +138,18 @@ class Grid:
     def move(self, translation):
         if self.can_move(translation) == True
             self.current_piece.move(translation)
-        else
-            pass
 
     def slam(self):
         if self.has_piece == True
-            while can_move(down) == True
+            while self.can_move(down) == True
                 self.move(down)
             self.has_piece = False
-        else
-            pass
+
 
     def introduce_piece(self):
-        pass
+        self.has_piece = True
+        self.current_piece = self.next_piece
+        self.next_piece = random_piece()
 
     def can_rotate(self, rotation):
         return True
@@ -161,4 +158,4 @@ class Grid:
         return True
 
     def random_piece(self):
-        return random.choice(self.pieces)(self.startpoint);
+        return random.choice(self.pieces)(self.startpoint)
