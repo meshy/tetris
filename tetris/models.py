@@ -138,7 +138,7 @@ class Grid:
             pass
 
     def move(self, translation):
-        if can_move(translation) == True
+        if self.can_move(translation) == True
             self.current_piece.move(translation)
         else
             pass
