@@ -148,7 +148,7 @@ class Grid:
     def introduce_piece(self):
         self.has_piece = True
         self.current_piece = self.next_piece
-        self.next_piece = random_piece()
+        self.next_piece = self.random_piece()
 
     def can_rotate(self, rotation):
         return True
