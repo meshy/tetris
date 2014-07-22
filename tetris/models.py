@@ -1,4 +1,5 @@
 from enum import Enum
+import random
 
 
 class State(Enum):
@@ -36,110 +37,124 @@ class Piece:
 
     def rotate(self, rotation):
         limit = len(self.orientations) + 1
-        self.rotation +=  rotation.value + limit
+        self.rotation += rotation.value + limit
         self.rotation %= limit
 
 
 class TPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 2, 0], [midpoint, 1]],
-            [[midpoint, 0], [midpoint, 1], [midpoint, 2], [midpoint + 1, 1]],
-            [[midpoint, 0], [midpoint - 1, 1], [midpoint, 1], [midpoint + 1, 1]],
-            [[midpoint, 0], [midpoint - 1, 1], [midpoint, 1], [midpoint, 2]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 2, 0], [startpoint, 1]],
+            [[startpoint, 0], [startpoint, 1], [startpoint, 2], [startpoint + 1, 1]],
+            [[startpoint, 0], [startpoint - 1, 1], [startpoint, 1], [startpoint + 1, 1]],
+            [[startpoint, 0], [startpoint - 1, 1], [startpoint, 1], [startpoint, 2]],
         ]
 
 
 class SquarePiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 2, 0], [midpoint, 1]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 2, 0], [startpoint, 1]],
         ]
 
-    def rotate(self, direction):
+    def rotate(self, rotation):
         pass
 
 
 class LLPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 2, 0], [midpoint + 2, 1]],
-            [[midpoint, 2], [midpoint + 1, 0], [midpoint + 1, 1], [midpoint + 1, 2]],
-            [[midpoint, 0], [midpoint, 1], [midpoint + 1, 1], [midpoint + 2, 1]],
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint, 1], [midpoint, 2]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 2, 0], [startpoint + 2, 1]],
+            [[startpoint, 2], [startpoint + 1, 0], [startpoint + 1, 1], [startpoint + 1, 2]],
+            [[startpoint, 0], [startpoint, 1], [startpoint + 1, 1], [startpoint + 2, 1]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint, 1], [startpoint, 2]],
         ]
 
 
 class RLPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 2, 0], [midpoint, 1]],
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 1, 1], [midpoint + 1, 2]],
-            [[midpoint + 2, 0], [midpoint, 1], [midpoint + 1, 1], [midpoint + 2, 1]],
-            [[midpoint, 0], [midpoint, 1], [midpoint, 2], [midpoint + 1, 2]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 2, 0], [startpoint, 1]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 1, 1], [startpoint + 1, 2]],
+            [[startpoint + 2, 0], [startpoint, 1], [startpoint + 1, 1], [startpoint + 2, 1]],
+            [[startpoint, 0], [startpoint, 1], [startpoint, 2], [startpoint + 1, 2]],
         ]
 
 
 class BarPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint - 1, 1], [midpoint , 1], [midpoint + 1, 1], [midpoint + 2, 1]],
-            [[midpoint, 0], [midpoint, 1], [midpoint, 2], [midpoint, 3]],
+            [[startpoint - 1, 1], [startpoint , 1], [startpoint + 1, 1], [startpoint + 2, 1]],
+            [[startpoint, 0], [startpoint, 1], [startpoint, 2], [startpoint, 3]],
         ]
 
 
 class LSPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint, 0], [midpoint + 1, 0], [midpoint + 1, 1], [midpoint + 2, 1]],
-            [[midpoint + 2, 0], [midpoint + 1, 1], [midpoint + 2, 1], [midpoint + 1, 2]],
+            [[startpoint, 0], [startpoint + 1, 0], [startpoint + 1, 1], [startpoint + 2, 1]],
+            [[startpoint + 2, 0], [startpoint + 1, 1], [startpoint + 2, 1], [startpoint + 1, 2]],
         ]
 
 
 class RSPiece(Piece):
-    def __init__(self, midpoint):
+    def __init__(self, startpoint):
         self.rotation = 0
         self.orientations = [
-            [[midpoint + 1, 0], [midpoint + 2, 0], [midpoint, 1], [midpoint + 1, 1]],
-            [[midpoint, 0], [midpoint, 1], [midpoint + 1, 1], [midpoint + 1, 2]],
+            [[startpoint + 1, 0], [startpoint + 2, 0], [startpoint, 1], [startpoint + 1, 1]],
+            [[startpoint, 0], [startpoint, 1], [startpoint + 1, 1], [startpoint + 1, 2]],
         ]
 
 
 class Grid:
     def __init__(self, width, height):
-        self.width = width
+        self.startpoint = width/2
+        self.current_piece = self.random_piece()
+        self.next_piece = self.random_piece()
+        self.has_piece = True
         self.height = height
+        self.width = width
         self.blocks = [[Block() for _ in range(width)] for _ in range(height)]
+        self.pieces = [TPiece,SquarePiece,LLPiece,RLPiece,BarPiece,LSPiece,RSPiece,]
 
     def step(self):
-        if self.has_falling_blocks():
-            pass
-            # do_things_n_stuff()
+        if self.has_piece == True:
+            self.move(down)
         else:
-            # create_new_falling_shape()
+            self.introduce_piece()
+
+    def rotate(self, rotation):
+        if can_rotate(rotation):
+            self.current_piece.rotate(rotation)
+        else:
             pass
 
-    def rotate(self, direction):
-        pass
-
-    def move(self, direction):
-        pass
+    def move(self, translation):
+        if self.can_move(translation):
+            self.current_piece.move(translation)
 
     def slam(self):
-        pass
-
-    def has_falling_blocks(self):
-        for row in self.blocks:
-            for block in row:
-                if block.state == State.moving:
-                    return True
-        return False
+        if self.has_piece == True:
+            while self.can_move(down):
+                self.move(down)
+            self.has_piece = False
 
     def introduce_piece(self):
-        pass
+        self.has_piece = True
+        self.current_piece = self.next_piece
+        self.next_piece = random_piece()
+
+    def can_rotate(self, rotation):
+        return True
+
+    def can_move(self, translation):
+        return True
+
+    def random_piece(self):
+        return random.choice(self.pieces)(self.startpoint)
