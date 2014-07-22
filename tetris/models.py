@@ -124,24 +124,24 @@ class Grid:
         self.pieces = [TPiece,SquarePiece,LLPiece,RLPiece,BarPiece,LSPiece,RSPiece,]
 
     def step(self):
-        if self.has_piece == True
+        if self.has_piece == True:
             self.move(down)
         else:
             self.introduce_piece()
 
     def rotate(self, rotation):
-        if can_rotate(rotation)
+        if can_rotate(rotation):
             self.current_piece.rotate(rotation)
-        else
+        else:
             pass
 
     def move(self, translation):
-        if self.can_move(translation)
+        if self.can_move(translation):
             self.current_piece.move(translation)
 
     def slam(self):
-        if self.has_piece == True
-            while self.can_move(down)
+        if self.has_piece == True:
+            while self.can_move(down):
                 self.move(down)
             self.has_piece = False
 
