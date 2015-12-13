@@ -19,11 +19,6 @@ class Rotation(Enum):
     right = 1
 
 
-class Block:
-    def __init__(self, state=State.empty):
-        self.state = state
-
-
 class Piece:
     def move(self, translation):
         transform = translation.value
@@ -112,16 +107,16 @@ class RSPiece(Piece):
         ]
 
 
-class Grid:
+class Board:
     def __init__(self, width, height):
         self.startpoint = width/2
+        self.pieces = [TPiece, SquarePiece, LLPiece, RLPiece, BarPiece, LSPiece, RSPiece]
         self.current_piece = self.random_piece()
         self.next_piece = self.random_piece()
         self.has_piece = True
         self.height = height
         self.width = width
-        self.blocks = [[Block() for _ in range(width)] for _ in range(height)]
-        self.pieces = [TPiece,SquarePiece,LLPiece,RLPiece,BarPiece,LSPiece,RSPiece,]
+        self.blocks = [[None for _ in range(width)] for _ in range(height)]
 
     def step(self):
         if self.has_piece == True:

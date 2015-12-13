@@ -52,13 +52,22 @@ function MainCtrl($scope, WebSocketFactory) {
         var direction;
         switch (event.keyCode) {
         case 40:  // Down
-            direction = 'Down';
+            direction = 'mdown';
             break;
         case 37:  // Left
-            direction = 'Left';
+            direction = 'mleft';
             break;
         case 39:  // Right
-            direction = 'Right';
+            direction = 'mright';
+            break;
+        case 32:  // Space
+            direction = 'rright';
+            break;
+        case 90:  // z
+            direction = 'rleft';
+            break;
+        case 88:  // x
+            direction = 'rright';
             break;
         default:
             break;
@@ -82,7 +91,8 @@ function MainCtrl($scope, WebSocketFactory) {
 
     WebSocketFactory.onmessage = function (event) {
         $scope.$apply(function () {
-            $scope.blocks.push(event.data);
+            $scope.blocks = JSON.parse(event.data).blocks;
+            console.log($scope.blocks);
         });
     };
 
